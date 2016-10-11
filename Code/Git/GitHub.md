@@ -6,4 +6,34 @@
 > Git 属于分散型版本管理系统，是为版本管理而设计的软件。它是由Linux 的创始人 Linus Torvalds 在 2005 年开发了的原型程序发展而来。其性能和功能自然没的说，用过的基佬都说好~
 
 ## 安装Git ##
-> 扯了半天没用的，赶紧进入正题，要想使用GitHub，首先我们需要安装Git，MAC和linux系统不必多说了，一般现在的系统都是默认安装Git，我就只说一下windows的安装，首先当然是下载[**Git for windows**](http://msysgit.github.io/)([或者从这里下载也可以](https://git-scm.com/downloads/)),下载完成后安装，相信大家都不成问题。
+> 扯了半天没用的，赶紧进入正题，要想使用GitHub，首先我们需要安装Git，MAC和linux系统不必多说了，一般现在的系统都是默认安装Git，我就只说一下windows的安装，首先当然是下载[**Git for windows**](http://msysgit.github.io/)([或者从这里下载也可以](https://git-scm.com/downloads/)),下载完成后安装，这里对几个安装选项进行简单的说明，配置好一路next，最后点击install就完成安装了（下图是我在安装时勾选的选项）。
+
+![安装步骤1](./img/git_install1.jpg)
+![安装步骤2](./img/git_install2.jpg)
+![安装步骤3](./img/git_install3.jpg)
+![安装步骤4](./img/git_install4.jpg)
+![安装步骤5](./img/git_install5.jpg)
+
+## 注册使用GitHub ##
+> 去[**官方网址**](https://github.com/)注册就好了没啥特别说明的地方。
+
+## 使用Git ##
+* 初始设置
+> 设置姓名和邮箱：（该设置会在**~/.gitconfig**中生成配置，并且在提交时会被公开哦~）
+```
+//设置姓名
+git config --global user.name "L.T.Any"
+//设置邮箱
+git config --global user.email "linetoanywhere@gmail.com"
+//设置输出内容高亮
+git config --global color.ui auto
+```
+* 设置SSH Key
+> 使用GitHub连接到已有仓库时，需要使用SSH的公钥进行认证，因此我们需要在本地创建一对密钥，本地Git Bash上执行如下：
+![生成SSH Key](./img/SSH_Key.gif)
+创建好SSH Key后，我们需要把它导入到GitHub中去，具体导入过程见下图：
+![导入SSH Key](./img/add_ssh_key.png)
+导入完成后我们可以简单测试一下是否可用，具体检验方法如下：（当出现Hi 。。。。 access这样的输出时说明可用）
+![检验SSH Key](./img/check_ssh_key.png)
+至此，SSH Key设置完成。
+*
