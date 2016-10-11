@@ -30,10 +30,10 @@ git config --global color.ui auto
 ```
 * 设置SSH Key
 > 使用GitHub连接到已有仓库时，需要使用SSH的公钥进行认证，因此我们需要在本地创建一对密钥，本地Git Bash上执行如下：
-![生成SSH Key](./img/SSH_Key.gif)
+<br/>![生成SSH Key](./img/SSH_Key.gif)<br/>
 创建好SSH Key后，我们需要把它导入到GitHub中去，具体导入过程见下图：
-![导入SSH Key](./img/add_ssh_key.png)
+<br/>![导入SSH Key](./img/add_ssh_key.png)<br/>
 导入完成后我们可以简单测试一下是否可用，具体检验方法如下：（当出现Hi 。。。。 access这样的输出时说明可用）
-![检验SSH Key](./img/check_ssh_key.png)
+<br/>![检验SSH Key](./img/check_ssh_key.png)<br/>
 至此，SSH Key设置完成。
 *
