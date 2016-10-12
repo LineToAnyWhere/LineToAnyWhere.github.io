@@ -11,4 +11,4 @@
 * **接着配置好终端协议类型及参数，我使用的是Xshell，配置如下图**  
 ![Xshell配置](/Code/Img/NetWork/Cisco/Xshell_config1.jpg)
 ![Xshell配置](/Code/Img/NetWork/Cisco/Xshell_config2.jpg)  
-*
+* **接下来开启路由器，使用Xshell连接，在路由器启动的过程中按下Fn+b键，发送break信号。（笔记本中没有break键，需要Fn+b键组合来模拟，正常情况下需要使用Ctrl+break键来发送中断信号，而对于Xshell来说使用Break键就会发送中断信号，因此，如果使用Xshell的同学，请按break或者Fn+b来发送中断信号，使用其他终端的同学使用Ctrl+Break或者Ctrl+Fn+b来发送中断信号）**
