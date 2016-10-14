@@ -19,7 +19,7 @@
   rommon 2 > reset
 ```
 **重启过后会询问是否进行初始化配置，一律“no”就好了。过程图如下：**  
-![Xshell配置](/Code/Img/NetWork/Cisco/ROMMON_MODE.jpg)
+![Xshell配置](/Code/Img/NetWork/Cisco/ROMMON_MODE.gif)
 * **5.进入特权模式，为了不破坏以前的配置，我们先将启动配置加载到运行时配置中**
 ```
   Route#copy startup-config running-config
