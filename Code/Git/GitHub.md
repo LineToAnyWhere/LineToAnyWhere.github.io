@@ -18,8 +18,8 @@
 ![安装步骤5](/Code/Img/Git/git_install5.jpg)
 
 ## 使用Git ##
-* **初始设置**  
-> 设置姓名和邮箱：（该设置会在**~/.gitconfig**中生成配置，并且在提交时会被公开哦~）
+* **初始设置**
+> 设置姓名和邮箱（该设置会在**~/.gitconfig**中生成配置，并且在提交时会被公开哦~）：
 ```
 //设置姓名
 git config --global user.name "L.T.Any"
