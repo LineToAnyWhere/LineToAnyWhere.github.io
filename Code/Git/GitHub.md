@@ -28,6 +28,7 @@ git config --global user.email "linetoanywhere@gmail.com"
 //设置输出内容高亮
 git config --global color.ui auto
 ```
+
 * **设置SSH Key**
 >使用GitHub连接到已有仓库时，需要使用SSH的公钥进行认证，因此我们需要在本地创建一对密钥，本地Git Bash上执行如下：  
 ![生成SSH Key](/Code/Img/Git/SSH_Key.gif)  
