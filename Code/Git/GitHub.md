@@ -18,7 +18,7 @@
 ![安装步骤5](/Code/Img/Git/git_install5.jpg)
 
 ## 使用Git ##
-* **初始设置**
+#### 初始设置 ####
 > 设置姓名和邮箱（该设置会在**~/.gitconfig**中生成配置，并且在提交时会被公开哦~）：
 ```
 //设置姓名
@@ -29,7 +29,7 @@ git config --global user.email "linetoanywhere@gmail.com"
 git config --global color.ui auto
 ```
 
-* **设置SSH Key**
+#### 设置SSH Key ####
 > 使用GitHub连接到已有仓库时，需要使用SSH的公钥进行认证，因此我们需要在本地创建一对密钥，本地Git Bash上执行如下：  
 ![生成SSH Key](/Code/Img/Git/SSH_Key.gif)  
 创建好SSH Key后，我们需要把它导入到GitHub中去，具体导入过程见下图：  
@@ -38,7 +38,7 @@ git config --global color.ui auto
 ![检验SSH Key](/Code/Img/Git/check_ssh_key.png)  
 至此，SSH Key设置完成。
 
-* **下载代码仓库**
+#### 下载代码仓库 ####
 > 创建好代码仓库后就可以将他们下载到本地来进行编辑修改了。在GitHub上进入仓库页，选择**Clone or Download**，这里可以选择使用https或者SSH，由于我们设置了SSH，因此选择SSH，复制地址。  
 ![检验SSH Key](/Code/Img/Git/Clone_Or_Download.png)
 ```
