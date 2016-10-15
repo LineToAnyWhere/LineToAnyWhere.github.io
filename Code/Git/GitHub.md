@@ -27,7 +27,7 @@ git config --global user.name "L.T.Any"
 git config --global user.email "linetoanywhere@gmail.com"
 //设置输出内容高亮
 git config --global color.ui auto
-```
+```  
 
 #### 设置SSH Key ####
 > 使用GitHub连接到已有仓库时，需要使用SSH的公钥进行认证，因此我们需要在本地创建一对密钥，本地Git Bash上执行如下：  
@@ -36,7 +36,7 @@ git config --global color.ui auto
 ![导入SSH Key](/Code/Img/Git/add_ssh_key.png)  
 导入完成后我们可以简单测试一下是否可用，具体检验方法如下：（当出现Hi 。。。。 access这样的输出时说明可用）  
 ![检验SSH Key](/Code/Img/Git/check_ssh_key.png)  
-至此，SSH Key设置完成。
+至此，SSH Key设置完成。  
 
 #### 下载并使用代码仓库 ####
 > 创建好代码仓库后就可以将他们下载到本地来进行编辑修改了。在GitHub上进入仓库页，选择**Clone or Download**，这里可以选择使用https或者SSH，由于我们设置了SSH，因此选择SSH，复制地址，打开git，切换到目标目录，并执行如下命令。  
@@ -66,6 +66,7 @@ git log
 git status
 ```
 > 这里我给大家一个全套执行的示例  
-![检验SSH Key](/Code/Img/Git/Use_Git.gif)
+![检验SSH Key](/Code/Img/Git/Use_Git.gif)  
+
 ## 更多 ##
 > 本文仅仅展示了最简单的GitHub和git的使用方法，此后会不定期在此文章上更新一些**GitHub**功能的使用方法，至于Git会另写一篇文章专门说明**Git**这个命令的各种参数用法。这里为大家推荐两本书，一本讲述了GitHub的详细使用，书名**《GitHub入门与实践》**，作者是**[日]大塚弘记**。另一本是高级Git的使用方法，书名**《Pro Git》**，不过目前这本书没有中文版，大家也可以参考**《Git版本控制管理（第2版）》**。另外《Pro Git》的英文版是可以从Git的[官网下载](https://git-scm.com/book/en/v2)PDF的。
