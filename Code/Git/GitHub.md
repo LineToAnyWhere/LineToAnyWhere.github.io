@@ -38,10 +38,34 @@ git config --global color.ui auto
 ![检验SSH Key](/Code/Img/Git/check_ssh_key.png)  
 至此，SSH Key设置完成。
 
-#### 下载代码仓库 ####
-> 创建好代码仓库后就可以将他们下载到本地来进行编辑修改了。在GitHub上进入仓库页，选择**Clone or Download**，这里可以选择使用https或者SSH，由于我们设置了SSH，因此选择SSH，复制地址。  
+#### 下载并使用代码仓库 ####
+> 创建好代码仓库后就可以将他们下载到本地来进行编辑修改了。在GitHub上进入仓库页，选择**Clone or Download**，这里可以选择使用https或者SSH，由于我们设置了SSH，因此选择SSH，复制地址，打开git，切换到目标目录，并执行如下命令。  
 ![检验SSH Key](/Code/Img/Git/Clone_Or_Download.png)
 ```
 //克隆仓库内容到本地
 git clone git@github.com:LineToAnyWhere/LineToAnyWhere.github.io.git
 ```
+> 此时仓库已经下载到本地，这时我们可以修改内容，然后在本地仓库中添加更改，之后提交更改。可以在内容更改后执行如下命令来在本地提交更改：
+```
+//添加更改后的文件到仓库中,当然也可以直接添加目录
+git add xxx.html    //添加单个文件到目录
+git add .           //添加当前目录中的文件
+//提交更改的内容
+git commit -m "修改部分代码"  //只有在执行完add后才可以提交更改，参数-m 后可以跟上此次提交的备注
+```
+> 到这里本地的更改已经可以由本地仓库来进行管理了，如果你需要在多个地点维护你的代码，这时候你就需要将你的代码提交到远程仓库，这里可以提交到GitHub上。
+```
+//提交本地仓库到GitHub
+git push
+```
+> 当然，我们可以在任何时候查看我们的提交历史记录，或者是查看当前仓库的状态
+```
+//查看提交历史纪录
+git log
+//查看当前仓库状态
+git status
+```
+> 这里我给大家一个全套执行的示意图  
+![检验SSH Key](/Code/Img/Git/Clone_Or_Download.png)
+## 更多 ##
+> 本文仅仅展示了最简单的GitHub和git的使用方法，此后会不定期在此文章上更新一些**GitHub**功能的使用方法，至于Git会另写一篇文章专门说明**Git**这个命令的各种参数用法。这里为大家推荐两本书，一本讲述了GitHub的详细使用，书名**《GitHub入门与实践》**，作者是**[日]大塚弘记**。另一本是高级Git的使用方法，书名**《Pro Git》**，不过目前这本书没有中文版，大家也可以参考**《Git版本控制管理（第2版）》**。另外《Pro Git》的英文版是可以从Git的[官网下载](https://git-scm.com/book/en/v2)PDF的。
