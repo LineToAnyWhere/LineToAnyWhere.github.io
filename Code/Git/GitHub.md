@@ -18,7 +18,7 @@
 ![安装步骤5](/Code/Img/Git/git_install5.jpg)
 
 ## 使用Git ##
-* **初始设置**
+* **初始设置**  
 > 设置姓名和邮箱：（该设置会在**~/.gitconfig**中生成配置，并且在提交时会被公开哦~）
 ```
 //设置姓名
@@ -28,7 +28,6 @@ git config --global user.email "linetoanywhere@gmail.com"
 //设置输出内容高亮
 git config --global color.ui auto
 ```
-出事
 
 * **设置SSH Key**
 > 使用GitHub连接到已有仓库时，需要使用SSH的公钥进行认证，因此我们需要在本地创建一对密钥，本地Git Bash上执行如下：  
@@ -46,4 +45,3 @@ git config --global color.ui auto
 //克隆仓库内容到本地
 git clone git@github.com:LineToAnyWhere/LineToAnyWhere.github.io.git
 ```
-> 啊手机地方大师傅
