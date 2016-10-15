@@ -9,14 +9,14 @@
 ## 恢复密码过程 ##
 1. **连好Console线，由于我使用的笔记本，所以是一根USB转RS232，接一根RS232转RJ45，再接路由器console口。**（刚买回设备的时候发现有两个console口，跟自己印象中的不一样啊，查了半天最后厚着脸皮问了现在在做机房运维的同学，告诉我说现在新的网络设备console口都是两个，一个RJ45，一个Mini Usb console。瞬间感觉四年大学白上了。。。）
 
-- **配置好终端协议类型及参数，我使用的是Xshell，配置如下图**  
+2. **配置好终端协议类型及参数，我使用的是Xshell，配置如下图**  
 ![Xshell配置](/Code/Img/NetWork/Cisco/Xshell_config1.jpg)  
 ![Xshell配置](/Code/Img/NetWork/Cisco/Xshell_config2.jpg)  
 
-- **开启路由器，使用Xshell连接，在路由器启动的过程中按下Fn+b键，发送break信号。（笔记本中没有break键，需要Fn+b键组合来模拟，正常情况下需要使用Ctrl+break键来发送中断信号，而对于Xshell来说使用Break键就会发送中断信号，因此，如果使用Xshell的同学，请按break或者Fn+b来发送中断信号，使用其他终端的同学使用Ctrl+Break或者Ctrl+Fn+b来发送中断信号）进入ROMMON模式如下:**  
+3. **开启路由器，使用Xshell连接，在路由器启动的过程中按下Fn+b键，发送break信号。（笔记本中没有break键，需要Fn+b键组合来模拟，正常情况下需要使用Ctrl+break键来发送中断信号，而对于Xshell来说使用Break键就会发送中断信号，因此，如果使用Xshell的同学，请按break或者Fn+b来发送中断信号，使用其他终端的同学使用Ctrl+Break或者Ctrl+Fn+b来发送中断信号）进入ROMMON模式如下:**  
 ![Xshell配置](/Code/Img/NetWork/Cisco/ROMMON_MODE.jpg)
 
-- **修改寄存器值为0x2142，这样会使引导过程中跳过密码验证。执行命令，并重启路由器，分别执行**
+4. **修改寄存器值为0x2142，这样会使引导过程中跳过密码验证。执行命令，并重启路由器，分别执行**
 ```
   rommon 1 > confreg 0x2142
   rommon 2 > reset
@@ -24,7 +24,7 @@
 **重启过后会询问是否进行初始化配置，一律“no”就好了。过程图如下：**  
 ![Xshell配置](/Code/Img/NetWork/Cisco/ROMMON_MODE.gif)
 
-- **进入特权模式，为了不破坏以前的配置，我们先将启动配置加载到运行时配置中**
+5. **进入特权模式，为了不破坏以前的配置，我们先将启动配置加载到运行时配置中**
 ```
   Route#copy startup-config running-config
 ```
