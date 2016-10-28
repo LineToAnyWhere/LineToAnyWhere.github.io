@@ -16,3 +16,4 @@
 ## git merge ##
 ## git rebase ##
 ## git remote ##
+## git fetch ##
