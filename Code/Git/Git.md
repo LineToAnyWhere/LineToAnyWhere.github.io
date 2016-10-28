@@ -15,5 +15,6 @@
 ## git checkout ##
 ## git merge ##
 ## git rebase ##
+## git fetch ##
 ## git remote ##
 ## git fetch ##
