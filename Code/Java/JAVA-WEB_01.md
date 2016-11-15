@@ -43,7 +43,7 @@ a
 
 * **修改tomcat端口号**  
   端口号配置是在tomcat安装目录的*/conf/server.xml*文件中记录，找到<Connector>标签，将**port**属性改为你期望的端口即可，修改完成后需要重启tomcat生效。修改时需注意不要改到已被占用的端口，这将会导致tomcat无法启动。
-* **在tomcat上设置虚拟主机**
+* **在tomcat上设置虚拟主机**  
   在tomcat设置虚拟主机可以使其同时运行多个不同域名的网站。修改的地方同样是在*/conf/server.xml*中，找到<Engine>标签，添加多个**Host**标签来添加，例如：  
   ```
   <Engine name="Catalina" defaultHost="localhost">  
