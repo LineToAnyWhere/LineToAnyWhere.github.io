@@ -35,4 +35,19 @@ Java Web应用程序最终将以War文件或未归档的Web应用程序目录进
 
 > ### 2.4 其他容器和应用服务器 ###
 
-> ## 3. Tomcat安装步骤 ##
+a
+> ## 3. 开发环境搭建 ##
+
+首先需要安装JAVA开发环境和运行环境，这里直接到oracle官网下载[**JDK**](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)并安装即可。其次需要安装一个IDE来辅助我们开发，这里选择大众的[**Eclipse**](https://www.eclipse.org/downloads/)，同样到官网下载安装。最后我们需要安装一个web服务器，这里选择apache的[**tomcat**](http://tomcat.apache.org/)（这里不再赘述安装方法）。
+> ### 3.1 使用时常见问题 ###  
+
+* **修改tomcat端口号**  
+  端口号配置是在tomcat安装目录的*/conf/server.xml*文件中记录，找到<Connector>标签，将**port**属性改为你期望的端口即可，修改完成后需要重启tomcat生效。修改时需注意不要改到已被占用的端口，这将会导致tomcat无法启动。
+* **在tomcat上设置虚拟主机**
+  在tomcat设置虚拟主机可以使其同时运行多个不同域名的网站。修改的地方同样是在*/conf/server.xml*中，找到<Engine>标签，添加多个**Host**标签来添加，例如：
+  ```
+  <Engine name="Catalina" defaultHost="localhost">
+   <Host name="localhost"  appBase="webapps/test" unpackWARs="true" autoDeploy="true">
+   <Host name="www.ltany.org"  appBase="webapps/ltany" unpackWARs="true" autoDeploy="true">
+  </Engine>
+  ```
