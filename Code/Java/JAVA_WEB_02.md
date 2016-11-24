@@ -34,6 +34,13 @@ Servlet 自动刷新&定时跳转
 response.setHeader("Refresh", "1000;URL=http://localhost:8080/xx/index.html");
 ```
 > ## 2. JSP ##
+
+**JSP工作过程：**JSP是一种Servlet，但是与HttpServlet工作方式不太一样，HttpServlet是先编译再部署，而JSP是先部署，再编译。一般将新的JSP部署到服务器上之后，执行过程如下:例如部署了first.jsp，在第一次访问的时候，服务器会先将first.jsp转化为标准的JAVA源代码first_jsp.java，并将first_jsp.java编译为first_jsp.class文件，该文件便是JSP对应的Servlet。编译完成后运行该文件来响应客户端请求。以后再访问的时候就不再编译，直接调用该文件来响应。JSP既然也是Servlet，其生命周期也和Servlet一样。不过JSP还有自己的初始化方法与销毁方法:_jspInit()与_jspDestroy(),另外JSP是有序编译的。  
+**JSP语法：**
+JSP脚本 <% %>
+JSP输出 <%= %>
+JSP方法 <%! %>
+
 > ## 3. 会话跟踪 ##
 > ## 4. Filter ##
 > ## 5. Listener ##
