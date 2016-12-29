@@ -35,7 +35,7 @@ Java Web应用程序最终将以War文件或未归档的Web应用程序目录进
 
 > ### 2.4 其他容器和应用服务器 ###
 
-a
+
 > ## 3. 开发环境搭建 ##
 
 首先需要安装JAVA开发环境和运行环境，这里直接到oracle官网下载[**JDK**](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)并安装即可。其次需要安装一个IDE来辅助我们开发，这里选择大众的[**Eclipse**](https://www.eclipse.org/downloads/)，同样到官网下载安装。最后我们需要安装一个web服务器，这里选择apache的[**tomcat**](http://tomcat.apache.org/)（这里不再赘述安装方法）。
