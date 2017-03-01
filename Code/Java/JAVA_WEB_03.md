@@ -43,7 +43,7 @@
 |'|&apos|
 |"|&quot|
 
-** JAVA中关于XML的API **
-JDK中关于XML的API有两个，分别是
+** JAVA中关于XML的API **  
+JDK中关于XML的API有两个，分别是:
 * **JAXP** (The Java API For XML Processing) : 主要负责解析XML
 * **JAXB** (JAVA Architecture for XML Binding) : 主要负责将XML映射为JAVA对象
