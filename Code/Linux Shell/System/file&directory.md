@@ -8,12 +8,11 @@
 * **pwd**用于显示当前工作目录
 * **mkdir**用于创建新的目录
 * **rmdir**用于删除空的目录
-* **cp**
-* **rm**
-* **mv**
+* **cp**用于复制文件或目录
+* **rm**用于删除文件或目录
+* **mv**用于移动文件或目录
 * **touch**
 
----
 关于文件与目录权限的命令有6个，分别是**chown**、**chgrp**、**chmod**、**umask**、**chattr**、**lsattr**  
 * **chown**用于修改某一文件或目录的所属人，同时也可以修改文件所属组
 * **chgrp**用于修改某一文件或目录的所属组
@@ -22,7 +21,6 @@
 * **chattr**
 * **lsattr**
 
----
 关于文件查看与寻找的命令有13个，分别是**cat**、**tac**、**nl**、**more**、**less**、**head**、**tail**、**od**、**which**、**whereis**、**locate**、**find**、**file**
 * **cat**
 * **tac**
@@ -40,10 +38,36 @@
 
 > # 常用参数 #
 
+* **pwd**  
+  -P ：显示出真是路径，而非link的路径
+* **mkdir**  
+  -m ：创建目录时同时配置目录权限，忽略umask设置  
+  -p ：递归创建目录，如果上级目录不存在则一起创建  
+* **rmdir**  
+  -p ：递归删除目录，连通上级空目录一起删除
 * **ls**  
   -l ：显示文件详情，包括文件名，大小，修改时间，文件权限等属性  
   -a ：显示包括隐藏文件  
+  -d ：仅列出目录本身，而不是列出目录内的文件数据  
+  -h ：将文件容量以人类较易读的方式(例如 GB, KB 等)列出来
+  -i ：列出 inode 号码，inode 的意义下一章将会介绍  
+  -r ：将排序结果反向输出，例如：原本档名由小到大，反向则为由大到小  
+  -R ：连同子目录内容一起列出来，等于该目录下的所有文件都会显示出来  
+  -S ：以文件容量大小排序，而不是用档名排序  
+  -t ：依时间排序，而不是用档名  
   --full-time ：显示文件的所有时间信息，包括atime，ctime，mtime  
+* **cp**  
+  -a ：相当於 -pdr 的意思，至於 pdr 请参考下列说明  
+  -d ：若来源档为连结档的属性(link file)，则复制连结档属性而非文件本身  
+  -f ：为强制(force)的意思，若目标文件已经存在且无法开启，则移除后再尝试一次  
+  -i ：若目标档(destination)已经存在时，在覆盖时会先询问动作的进行  
+  -l ：进行硬式连结(hard link)的连结档创建，而非复制文件本身  
+  -p ：连同文件的属性一起复制过去，而非使用默认属性(备份常用)  
+  -r ：递回持续复制，用於目录的复制行为  
+  -s ：复制成为符号连结档 (symbolic link)，亦即『捷径』文件
+  -u ：若 destination 比 source 旧才升级 destination
+* **rm**
+* **mv**
 * **chgrp**  
   -R ：递归得改变次级目录中的文件及目录权限
 * **chown**  
@@ -54,6 +78,16 @@
 > # 应用示例 #
 
 ```
+[root@www ~]# cd                    //切换至家目录
+[root@www ~]# cd -                  //切换到上一个工作目录
+[root@www /]# cd /lib               //切换到/lib目录
+[root@www lib]# pwd                 //显示当前工作路径
+[root@www ~]# mkdir -p a/b/c        //连续创建a/b/c目录
+[root@www ~]# mkdir -m 777 -p a/b/d //连续创建a/b/d目录并且设置目录权限为777
+[root@www ~]# rmdir -p a/b/c        //连续删除a/b/c目录
+[root@www ~]# cp -s a as            //符号连接（symbolic link）
+[root@www ~]# cp -l a al            //实体连接（hard link）
+
 [root@www ~]# chgrp root file       //更改文件所有群组为root组
 [root@www ~]# chgrp -R root dir/    //递归更改dir下所有的文件和目录的所有者为root用户
 [root@www ~]# chown root file       //更改文件所有者为root用户  //更改文件所有者和所属群组为root
