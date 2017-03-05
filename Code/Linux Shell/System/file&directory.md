@@ -12,6 +12,7 @@
 * **rm**
 * **mv**
 * **touch**
+
 ---
 关于文件与目录权限的命令有6个，分别是**chown**、**chgrp**、**chmod**、**umask**、**chattr**、**lsattr**  
 * **chown**用于修改某一文件或目录的所属人，同时也可以修改文件所属组
@@ -20,6 +21,7 @@
 * **umask**
 * **chattr**
 * **lsattr**
+
 ---
 关于文件查看与寻找的命令有13个，分别是**cat**、**tac**、**nl**、**more**、**less**、**head**、**tail**、**od**、**which**、**whereis**、**locate**、**find**、**file**
 * **cat**
