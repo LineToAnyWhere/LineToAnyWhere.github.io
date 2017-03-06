@@ -22,14 +22,14 @@
 * **lsattr**
 
 关于文件查看与寻找的命令有13个，分别是**cat**、**tac**、**nl**、**more**、**less**、**head**、**tail**、**od**、**which**、**whereis**、**locate**、**find**、**file**
-* **cat**
-* **tac**
-* **nl**
-* **more**
-* **less**
-* **head**
-* **tail**
-* **od**
+* **cat**从第一行开始显示文件内容
+* **tac**从最后一行开始显示文件内容
+* **nl**显示内容并且带有行号
+* **more**一页一页的显示文件内容
+* **less**与more类似，但是与more相比，less可以向前翻页
+* **head**只看某文件的头几行
+* **tail**只看某文件尾巴几行
+* **od**以二进制位的方式读取文件内容
 * **which**
 * **whereis**
 * **locate**
@@ -66,8 +66,43 @@
   -r ：递回持续复制，用於目录的复制行为  
   -s ：复制成为符号连结档 (symbolic link)，亦即『捷径』文件
   -u ：若 destination 比 source 旧才升级 destination
-* **rm**
-* **mv**
+* **rm**  
+  -f ：就是 force 的意思，忽略不存在的文件，不会出现警告信息  
+  -i ：互动模式，在删除前会询问使用者是否删除  
+  -r ：递归删除！最常用在目录的删除了  
+* **mv**  
+  -f ：force 强制的意思，如果目标文件已经存在，不会询问而直接覆盖  
+  -i ：若目标文件 (destination) 已经存在时，就会询问是否覆盖  
+  -u ：若目标文件已经存在，且 source 比较新，才会升级 (update)
+* **cat**  
+  -A ：相当於 -vET 的组合选项，可列出一些特殊字符而不是空白而已  
+  -b ：列出行号，仅针对非空白行做行号显示，空白行不标行号  
+  -E ：将结尾的断行字节 $ 显示出来  
+  -n ：列印出行号，连同空白行也会有行号，与 -b 的选项不同  
+  -T ：将 [tab] 按键以 ^I 显示出来  
+  -v ：列出一些看不出来的特殊字符
+* **nl**  
+  -b  ：指定行号指定的方式，主要有两种：  
+  -b a ：表示不论是否为空行，也同样列出行号(类似 cat -n)  
+  -b t ：如果有空行，空的那一行不要列出行号(默认值)  
+  -n  ：列出行号表示的方法，主要有三种：  
+  -n ln ：行号在萤幕的最左方显示  
+  -n rn ：行号在自己栏位的最右方显示，且不加 0  
+  -n rz ：行号在自己栏位的最右方显示，且加 0  
+  -w  ：行号栏位的占用的位数  
+* ****  
+* ****  
+* ****  
+* ****  
+* ****  
+* ****  
+* ****  
+* ****  
+* ****  
+* ****  
+* ****  
+* ****  
+* ****  
 * **chgrp**  
   -R ：递归得改变次级目录中的文件及目录权限
 * **chown**  
@@ -87,6 +122,15 @@
 [root@www ~]# rmdir -p a/b/c        //连续删除a/b/c目录
 [root@www ~]# cp -s a as            //符号连接（symbolic link）
 [root@www ~]# cp -l a al            //实体连接（hard link）
+[root@www ~]# rm -rf a              //递归强制删除a目录及其子目录所有数据
+[root@www ~]# mv a b c .            //将a、b、c移动到当前工作目录
+[root@www ~]# cat -A sshd.conf      //显示sshd.conf文件内容，包括特殊符号
+[root@www ~]# tac /etc/issue        //倒着显示issue文件内容
+[root@www ~]# nl -b a -n rz -w 3 a  //显示a文件内容，所有行带行号，行号显示在右侧且不足3位时补足0
+[root@www ~]# more /etc/man.config  //翻页查看man.config文件
+[root@www ~]# less /etc/man.config  //翻页查看man.config文件
+
+
 
 [root@www ~]# chgrp root file       //更改文件所有群组为root组
 [root@www ~]# chgrp -R root dir/    //递归更改dir下所有的文件和目录的所有者为root用户
