@@ -74,6 +74,8 @@
   -f ：force 强制的意思，如果目标文件已经存在，不会询问而直接覆盖  
   -i ：若目标文件 (destination) 已经存在时，就会询问是否覆盖  
   -u ：若目标文件已经存在，且 source 比较新，才会升级 (update)
+* **touch**  
+
 * **cat**  
   -A ：相当於 -vET 的组合选项，可列出一些特殊字符而不是空白而已  
   -b ：列出行号，仅针对非空白行做行号显示，空白行不标行号  
@@ -90,9 +92,19 @@
   -n rn ：行号在自己栏位的最右方显示，且不加 0  
   -n rz ：行号在自己栏位的最右方显示，且加 0  
   -w  ：行号栏位的占用的位数  
-* ****  
-* ****  
-* ****  
+* **head**  
+  -n ：后面接数字，代表显示几行的意思  
+* **tail**  
+  -n ：后面接数字，代表显示几行的意思  
+  -f ：表示持续侦测后面所接的档名，要等到按下[ctrl]-c才会结束tail的侦测  
+* **od**  
+      -t ：后面可以接各种『类型 (TYPE)』的输出，例如：
+      a       ：利用默认的字节来输出；
+      c       ：使用 ASCII 字节来输出
+      d[size] ：利用十进位(decimal)来输出数据，每个整数占用 size bytes ；
+      f[size] ：利用浮点数值(floating)来输出数据，每个数占用 size bytes ；
+      o[size] ：利用八进位(octal)来输出数据，每个整数占用 size bytes ；
+      x[size] ：利用十六进位(hexadecimal)来输出数据，每个整数占用 size bytes ；
 * ****  
 * ****  
 * ****  
@@ -129,8 +141,8 @@
 [root@www ~]# nl -b a -n rz -w 3 a  //显示a文件内容，所有行带行号，行号显示在右侧且不足3位时补足0
 [root@www ~]# more /etc/man.config  //翻页查看man.config文件
 [root@www ~]# less /etc/man.config  //翻页查看man.config文件
-
-
+[root@www ~]# head -n -20 file      //查看file文件倒数20行以前的内容
+[root@www ~]# tail -n +100 file     //查看file文件100行以后的数据
 
 [root@www ~]# chgrp root file       //更改文件所有群组为root组
 [root@www ~]# chgrp -R root dir/    //递归更改dir下所有的文件和目录的所有者为root用户
