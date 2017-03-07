@@ -11,15 +11,15 @@
 * **cp**用于复制文件或目录
 * **rm**用于删除文件或目录
 * **mv**用于移动文件或目录
-* **touch**
+* **touch**用于更新文件修改时间，或创建新的空文件
 
 关于文件与目录权限的命令有6个，分别是**chown**、**chgrp**、**chmod**、**umask**、**chattr**、**lsattr**  
 * **chown**用于修改某一文件或目录的所属人，同时也可以修改文件所属组
 * **chgrp**用于修改某一文件或目录的所属组
 * **chmod**用于修改某一文件或者目录的权限信息。
-* **umask**
-* **chattr**
-* **lsattr**
+* **umask**用于设置文件或目录被创建时的默认权限
+* **chattr**用于配置文件的隐藏权限属性
+* **lsattr**用于显示文件的隐藏权限属性
 
 关于文件查看与寻找的命令有13个，分别是**cat**、**tac**、**nl**、**more**、**less**、**head**、**tail**、**od**、**which**、**whereis**、**locate**、**find**、**file**
 * **cat**从第一行开始显示文件内容
@@ -75,7 +75,11 @@
   -i ：若目标文件 (destination) 已经存在时，就会询问是否覆盖  
   -u ：若目标文件已经存在，且 source 比较新，才会升级 (update)
 * **touch**  
-
+  -a ：仅更新access time  
+  -c ：仅修改文件的时间，若该文件不存在则不创建新文件  
+  -d ：可以接欲修订的日期而不用目前的日期，也可以使用 --date="日期或时间"  
+  -m ：仅修改 mtime  
+  -t ：后面可以接欲修订的时间而不用目前的时间，格式为[YYMMDDhhmm]
 * **cat**  
   -A ：相当於 -vET 的组合选项，可列出一些特殊字符而不是空白而已  
   -b ：列出行号，仅针对非空白行做行号显示，空白行不标行号  
@@ -98,13 +102,13 @@
   -n ：后面接数字，代表显示几行的意思  
   -f ：表示持续侦测后面所接的档名，要等到按下[ctrl]-c才会结束tail的侦测  
 * **od**  
-      -t ：后面可以接各种『类型 (TYPE)』的输出，例如：
-      a       ：利用默认的字节来输出；
-      c       ：使用 ASCII 字节来输出
-      d[size] ：利用十进位(decimal)来输出数据，每个整数占用 size bytes ；
-      f[size] ：利用浮点数值(floating)来输出数据，每个数占用 size bytes ；
-      o[size] ：利用八进位(octal)来输出数据，每个整数占用 size bytes ；
-      x[size] ：利用十六进位(hexadecimal)来输出数据，每个整数占用 size bytes ；
+  -t ：后面可以接各种『类型 (TYPE)』的输出，例如：  
+  -t a ：利用默认的字节来输出  
+  -t c ：使用 ASCII 字节来输出  
+  -t d[size] ：利用十进位(decimal)来输出数据，每个整数占用 size bytes  
+  -t f[size] ：利用浮点数值(floating)来输出数据，每个数占用 size bytes  
+  -t o[size] ：利用八进位(octal)来输出数据，每个整数占用 size bytes  
+  -t x[size] ：利用十六进位(hexadecimal)来输出数据，每个整数占用 size bytes  
 * ****  
 * ****  
 * ****  
@@ -121,13 +125,34 @@
   -R ：递归得改变次级目录中的文件及目录权限
 * **chmod**  
   -R ：递归得改变次级目录中的文件及目录权限
-
+* **chattr**  
+  \+ ：添加某一个特殊参数，其他原本存在参数则不动  
+  \- ：移除某一个特殊参数，其他原本存在参数则不动  
+  = ：配置一定，且仅有后面接的参数  
+  A ：当配置了 A 这个属性时，若你有存取此文件(或目录)时，他的存取时间 atime
+   将不会被修改，可避免I/O较慢的机器过度的存取磁碟。这对速度较慢的计算机有帮助  
+  S ：一般文件是非同步写入磁碟的(原理请参考第五章sync的说明)，如果加上 S 这个
+   属性时，当你进行任何文件的修改，该更动会『同步』写入磁碟中  
+  a ：当配置 a 之后，这个文件将只能添加数据，而不能删除也不能修改数据，只有root
+才能配置这个属性  
+  c ：这个属性配置之后，将会自动的将此文件『压缩』，在读取的时候将会自动解压缩，但是在储存的时候，将会先进行压缩后再储存(看来对於大文件似乎蛮有用的！)  
+  d ：当 dump 程序被运行的时候，配置 d 属性将可使该文件(或目录)不会被 dump 备份  
+  i ：可以让一个文件『不能被删除、改名、配置连结，也无法写入或新增数据！』对於系统安全性有相当大的助益！只有 root 能配置此属性  
+  s ：当文件配置了 s 属性时，如果这个文件被删除，他将会被完全的移除出这个硬盘空间，所以如果误删了，完全无法救回来  
+  u ：与 s 相反的，当使用 u 来配置文件时，如果该文件被删除了，则数据内容其实还
+   存在磁碟中，可以使用来救援该文件  
+* **lsattr**  
+  -a ：将隐藏档的属性显示出来  
+  -d ：如果接的是目录，仅列出目录本身的属性而非目录内的档名  
+  -R ：连同子目录的数据也一并列出来  
+  
 > # 应用示例 #
 
 ```
 [root@www ~]# cd                    //切换至家目录
 [root@www ~]# cd -                  //切换到上一个工作目录
 [root@www /]# cd /lib               //切换到/lib目录
+[root@www ~]# ls -l --time=atime a  //查看a文件的access time
 [root@www lib]# pwd                 //显示当前工作路径
 [root@www ~]# mkdir -p a/b/c        //连续创建a/b/c目录
 [root@www ~]# mkdir -m 777 -p a/b/d //连续创建a/b/d目录并且设置目录权限为777
@@ -143,6 +168,12 @@
 [root@www ~]# less /etc/man.config  //翻页查看man.config文件
 [root@www ~]# head -n -20 file      //查看file文件倒数20行以前的内容
 [root@www ~]# tail -n +100 file     //查看file文件100行以后的数据
+[root@www ~]# od -t c passwd        //以ascii方式查看passwd文件
+[root@www ~]# touch -d "2 days ago" bashrc //更改修改日期到两天前
+[root@www ~]# umask 052             //设置默认权限为拿掉同组读执行，其他写权限
+[root@www ~]# chattr +i attrtest    //为attrtest添加隐藏的i属性
+[root@www ~]# lsattr attrtest       //显示attrtest的隐藏属性
+
 
 [root@www ~]# chgrp root file       //更改文件所有群组为root组
 [root@www ~]# chgrp -R root dir/    //递归更改dir下所有的文件和目录的所有者为root用户
