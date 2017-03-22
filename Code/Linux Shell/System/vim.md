@@ -129,18 +129,14 @@ vim中有三种模式，分别是一般模式、编辑模式、指令模式
 ## vim参数设定 ##
 |指令键|功能|
 |:-:|:-:|
-|:set nu
-|:set nonu	就是设定与取消行号啊！
-|:set hlsearch
-|:set nohlsearch	hlsearch 就是 high light search(高亮度搜寻)。 这个就是设定是否将搜寻的字符串反白的设定值。默认值是 hlsearch
-|:set autoindent
-|:set noautoindent	是否自动缩排？autoindent 就是自动缩排。
-|:set backup	是否自动储存备份档？一般是 nobackup 的， 如果设定 backup 的话，那么当你更动任何一个档案时，则源文件会被另存成一个档名为 filename~ 的档案。 举例来说，我们编辑 hosts ，设定 :set backup ，那么当更动 hosts 时，在同目录下，就会产生 hosts~ 文件名的档案，记录原始的 hosts 档案内容
-|:set ruler	还记得我们提到的右下角的一些状态栏说明吗？ 这个 ruler 就是在显示或不显示该设定值的啦！
-|:set showmode	这个则是，是否要显示 --INSERT-- 之类的字眼在左下角的状态栏。
-|:set backspace=(012)	一般来说， 如果我们按下 i 进入编辑模式后，可以利用退格键 (backspace) 来删除任意字符的。 但是，某些 distribution 则不许如此。此时，我们就可以透过 backspace 来设定啰～ 当 backspace 为 2 时，就是可以删除任意值；0 或 1 时，仅可删除刚刚输入的字符， 而无法删除原本就已经存在的文字了！
-|:set all	显示目前所有的环境参数设定值。
-|:set	显示与系统默认值不同的设定参数， 一般来说就是你有自行变动过的设定参数啦！
-|:syntax on
-|:syntax off	是否依据程序相关语法显示不同颜色？ 举例来说，在编辑一个纯文本档时，如果开头是以 # 开始，那么该行就会变成蓝色。 如果你懂得写程序，那么这个 :syntax on 还会主动的帮你除错呢！但是， 如果你仅是编写纯文本档案，要避免颜色对你的屏幕产生的干扰，则可以取消这个设定 。
-|:set bg=dark :set bg=light|可用以显示不同的颜色色调，预设是『 light 』。如果你常常发现批注的字体深蓝色实在很不容易看， 那么这里可以设定为 dark 喔！试看看，会有不同的样式呢！|
+|:set nu :set nonu|设定与取消行号|
+|:set hlsearch :set nohlsearch|hlsearch 就是 high light search(高亮度搜寻)。 这个就是设定是否将搜寻的字符串反白的设定值。默认值是 hlsearch|
+|:set autoindent :set noautoindent|是否自动缩排？autoindent 就是自动缩排。|
+|:set backup|是否自动储存备份档？一般是 nobackup 的， 如果设定 backup 的话，那么当你更动任何一个档案时，则源文件会被另存成一个档名为 filename~ 的档案。 举例来说，我们编辑 hosts ，设定 :set backup ，那么当更动 hosts 时，在同目录下，就会产生 hosts~ 文件名的档案，记录原始的 hosts 档案内容|
+|:set ruler|还记得我们提到的右下角的一些状态栏说明吗？ 这个 ruler 就是在显示或不显示该设定值的啦！|
+|:set showmode|这个则是，是否要显示 --INSERT-- 之类的字眼在左下角的状态栏。|
+|:set backspace=(012)|一般来说， 如果我们按下 i 进入编辑模式后，可以利用退格键 (backspace) 来删除任意字符的。 但是，某些 distribution 则不许如此。此时，我们就可以透过 backspace 来设定啰～ 当 backspace 为 2 时，就是可以删除任意值；0 或 1 时，仅可删除刚刚输入的字符， 而无法删除原本就已经存在的文字了！|
+|:set all|显示目前所有的环境参数设定值。|
+|:set|显示与系统默认值不同的设定参数， 一般来说就是你有自行变动过的设定参数啦！|
+|:syntax on :syntax off|是否依据程序相关语法显示不同颜色？ 举例来说，在编辑一个纯文本档时，如果开头是以 # 开始，那么该行就会变成蓝色。 如果你懂得写程序，那么这个 :syntax on 还会主动的帮你除错呢！但是， 如果你仅是编写纯文本档案，要避免颜色对你的屏幕产生的干扰，则可以取消这个设定 。|
+|:set bg=dark :set bg=light|可用以显示不同的颜色色调，预设是『 light 』。如果你常常发现批注的字体深蓝色实在很不容易看， 那么这里可以设定为 dark 喔！|
