@@ -75,7 +75,22 @@
   -f ：后面就接你要处理的那个 dump 文件罗  
   -D ：与 -C 进行搭配，可以查出后面接的挂载点与 dump 内有不同的文件  
 * **dd**  
+  if ：input file 或装置  
+  of ：output file 或装置  
+  bs ：规划的一个 block 的大小，若未指定则默认是 512 bytes(一个 sector 的大小)
+  count ：多少个 bs 的意思。
 * **cpio**  
+  备份会使用到的选项与参数：  
+  -o ：将数据 copy 输出到文件或装置上
+  -B ：让默认的 Blocks 可以添加至 5120 bytes ，默认是 512 bytes ，这样的好处是可以让大文件的储存速度加快(请参考 i-nodes 的观念)  
+  还原会使用到的选项与参数：  
+  -i ：将数据自文件或装置 copy 出来系统当中  
+  -d ：自动创建目录！使用 cpio 所备份的数据内容不见得会在同一层目录中，因此我们必须要让 cpio 在还原时可以创建新目录，此时就得要 -d 选项的帮助  
+  -u ：自动的将较新的文件覆盖较旧的文件  
+  -t ：需配合 -i 选项，可用在"察看"以 cpio 创建的文件或装置的内容  
+  一些可共享的选项与参数：  
+  -v ：让储存的过程中文件名称可以在萤幕上显示  
+  -c ：一种较新的 portable format 方式储存  
 * **mkisofs**  
   -o ：后面接想要产生的映像档档名  
   -r ：透过 Rock Ridge 产生支持 Unix/Linux 的文件数据，可记录较多的资讯  
@@ -97,7 +112,7 @@
   针对 DVD 的选项功能：  
   driveropts=burnfree ：打开 Buffer Underrun Free 模式的写入功能  
   -sao ：支持 DVD-RW 的格式
-  
+
 > # 应用示例 #
 
 ```
@@ -126,7 +141,10 @@
 [root@www ~]# cdrecord -scanbus dev=ATA                     //查询烧录机位置
 [root@www ~]# cdrecord -v dev=ATA:x,y,z blank=[fast|all]    //抹除重复读写片
 [root@www ~]# cdrecord -v dev=ATA:x,y,z -format             //格式化DVD+RW
-[root@www ~]# cdrecord -v dev=ATA:x,y,z [可用选项功能] file.iso
+[root@www ~]# cdrecord -v dev=ATA:x,y,z [可选功能] file.iso  //烧录工作
+[root@www ~]# dd if=/dev/hdc of=/tmp/b.back bs=512 count=1  //从hdc磁盘读取512大小的一个块，写入b.back，此方法用于备份磁盘MBR与分区表
+[root@www ~]# find /boot | cpio -ocvB > /tmp/boot.cpio      //找出 /boot 底下的所有文件，然后将他备份到 /tmp/boot.cpio
+[root@www ~]# cpio -idvc < /tmp/boot.cpio                   //将刚刚的文件在 /root/ 目录下解开
 ```
 
 > # 总结 #
