@@ -84,20 +84,20 @@
   -V vol ：创建 Volume，有点像 Windows 在文件总管内看到的 CD title 的东西  
   -graft-point ：graft有转嫁或移植的意思，相关数据在底下文章内说明  
 * **cdrecord**  
-  -scanbus ：用在扫瞄磁碟汇流排并找出可用的烧录机，后续的装置为 ATA 介面  
-  -v ：在 cdrecord 运行的过程中，显示过程而已  
-dev=ATA:x,y,z   ：后续的 x, y, z 为你系统上烧录机所在的位置，非常重要！
-blank=[fast|all]：blank 为抹除可重复写入的CD/DVD-RW，使用fast较快，all较完整
+  -scanbus ：搜索出可用的烧录机，支持ATA，IDE，SATA接口类型  
+  -v ：显示cdrecord的过程  
+  dev=ATA:x,y,z ：后续的 x, y, z 为你系统上烧录机所在的位置  
+  blank=[fast|all] ：blank 为抹除可重复写入的CD/DVD-RW，使用fast较快，all较完整  
   -format ：仅针对 DVD+RW 这种格式的 DVD 而已  
-[可用选项功能] 主要是写入 CD/DVD 时可使用的选项，常见的选项包括有：
-   -data ：指定后面的文件以数据格式写入，不是以 CD 音轨(-audio)方式写入！
-   speed=X ：指定烧录速度，例如CD可用 speed=40 为40倍数，DVD则可用 speed=4 之类
-   -eject ：指定烧录完毕后自动退出光盘
-   fs=Ym ：指定多少缓冲内存，可用在将映像档先缓存至缓冲内存。默认为 4m，
-             一般建议可添加到 8m ，不过，还是得视你的烧录机而定。
-针对 DVD 的选项功能：
-   driveropts=burnfree ：打开 Buffer Underrun Free 模式的写入功能
-   -sao                ：支持 DVD-RW 的格式
+  [可用选项功能] 主要是写入 CD/DVD 时可使用的选项，常见的选项包括有：  
+  -data ：指定后面的文件以数据格式写入，不是以 CD 音轨(-audio)方式写入  
+  speed=X ：指定烧录速度，例如CD可用 speed=40 为40倍数，DVD则可用 speed=4 之类  
+  -eject ：指定烧录完毕后自动退出光盘  
+  fs=Ym ：指定多少缓冲内存，可用在将映像档先缓存至缓冲内存。默认为 4m，一般建议可添加到 8m ，不过，还是得视你的烧录机而定  
+  针对 DVD 的选项功能：  
+  driveropts=burnfree ：打开 Buffer Underrun Free 模式的写入功能  
+  -sao ：支持 DVD-RW 的格式
+  
 > # 应用示例 #
 
 ```
@@ -123,7 +123,10 @@ blank=[fast|all]：blank 为抹除可重复写入的CD/DVD-RW，使用fast较快
 [root@www ~]# mkisofs -r -v -o /tmp/system.img /home /etc   //将/home和/etc目录添加至system.img镜像档,这种方法添加所有文件将会散乱的加入到镜像中。
 //使用以下方法可以将镜像文档按照目录结构来创建
 [root@www ~]# mkisofs -r -V 'linux_file' -o /tmp/system.img -m /home/lost+found -graft-point /root=/root /home=/home /etc=/etc
-
+[root@www ~]# cdrecord -scanbus dev=ATA                     //查询烧录机位置
+[root@www ~]# cdrecord -v dev=ATA:x,y,z blank=[fast|all]    //抹除重复读写片
+[root@www ~]# cdrecord -v dev=ATA:x,y,z -format             //格式化DVD+RW
+[root@www ~]# cdrecord -v dev=ATA:x,y,z [可用选项功能] file.iso
 ```
 
 > # 总结 #
