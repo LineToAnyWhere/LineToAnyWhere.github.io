@@ -15,6 +15,8 @@
   date "+%Y-%m-%d %H:%M:%S"
 //AIX取昨天数据需要更改时区，不支持-d参数
   delname=`TZ=aaa24 date +%Y%m%d`
+//AIX取明天数据需要更改时区，不支持-d参数
+  delname=`TZ=aaa-24 date +%Y%m%d`
 //昨天：
   date -d '-1 day' +'%Y%m%d'
   date -d "1 days ago" +%Y%m%d
