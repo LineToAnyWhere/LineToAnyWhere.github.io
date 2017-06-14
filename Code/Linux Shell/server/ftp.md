@@ -430,7 +430,7 @@ account    required     /lib64/security/pam_userdb.so db=/etc/vsftpd/vuser
 > # Vsftp使用 #
 
 vsftp在使用时虚根据具体的需求来制定配置，此处不做详细事例,仅给出网上一些配置方法。  
-[vsftp实体用户](http://www.cnblogs.com/kluan/p/4821537.html)
+[vsftp实体用户](http://www.cnblogs.com/kluan/p/4821537.html)  
 [vsftp虚拟用户](http://www.cnblogs.com/acpp/archive/2010/02/08/1665876.html)
 > # Vsftp参考文档 #
 
