@@ -106,9 +106,11 @@ EXT2/EXT3 的额外选项功能：(e2fsck 这支命令所提供)
 * **free**
   查看当前内存使用状况，直接使用即可
 * **mkswap**
+  mkswap 装置名称
 * **swapon**
+  swapon 装置名称
 * **parted**
-
+  parted 装置名称 命令
 > # 应用示例 #
 
 ```
@@ -130,17 +132,10 @@ EXT2/EXT3 的额外选项功能：(e2fsck 这支命令所提供)
 [root@www ~]# e2label /dev/hdc6 "my_test"                 //将hdc6的label修改为my_test
 [root@www ~]# tune2fs -l /dev/sda1                        //列出/dev/sda1的superblock内容
 [root@www ~]# free -g                                     //以方便读取的方式查看内存使用情况
-[root@www ~]# 
-[root@www ~]#
-[root@www ~]#
-[root@www ~]#
-[root@www ~]#
-[root@www ~]#
-[root@www ~]#
-[root@www ~]#
-[root@www ~]#
-[root@www ~]#
-[root@www ~]#
+[root@www ~]# mkswap /dev/sda3                            //将sda3创建为swap
+[root@www ~]# parted /dev/sdb print                       //打印/dev/sdb的分区情况
+[root@www ~]# parted /dev/sdb mkpart logical ext3 1GB 5GB //在sdb上分割逻辑分区，文件系统使用ext3，从1G位置开始，5G位置结束
+[root@www ~]# parted /dev/sdb rm 8                        //删除sdb上8号分区
 ```
 > # 概念简介 #
 
