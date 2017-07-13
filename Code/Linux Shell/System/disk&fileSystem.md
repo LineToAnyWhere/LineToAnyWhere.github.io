@@ -103,13 +103,13 @@ EXT2/EXT3 的额外选项功能：(e2fsck 这支命令所提供)
   -L ：类似 e2label 的功能，可以修改 filesystem 的 Label 喔  
 * **hdparm**  
   鉴于目前IDE接口设备很少，因此不再介绍此命令
-* **free**
+* **free**  
   查看当前内存使用状况，直接使用即可
-* **mkswap**
+* **mkswap**  
   mkswap 装置名称
-* **swapon**
+* **swapon**  
   swapon 装置名称
-* **parted**
+* **parted**  
   parted 装置名称 命令
 > # 应用示例 #
 
