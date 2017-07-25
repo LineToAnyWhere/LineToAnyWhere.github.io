@@ -45,7 +45,7 @@ lvm2-libs-2.02.166-1.el7.x86_64
 LVM命令图表如下：  
 
 |任务|PV阶段|VG阶段|LV阶段|
-|::|::|::|::|
+|:-:|:-:|:-:|:-:|
 |搜索(scan)|pvscan|vgscan|lvscan|
 |创建(create)|pvcreate|vgcreate|lvcreate|
 |列出(display)|pvdisplay|vgdisplay|lvdisplay|
