@@ -6,15 +6,16 @@
 * **userdel** 用户删除
 * **passwd** 密码修改
 * **chage** 口令详细参数显示
-* **** 重启
-* **** 重启
-* **** 重启
-* **** 重启
-* **** 重启
-* **** 重启
+* **finger** 查看用户信息
+* **chfn** change finger
+* **chsh** change shell
+* **id** 查询UID/GID等信息
+* **groupadd** 新增群组
+* **groupmod** 修改群组
+* **groupdel** 删除群组
+* **gpasswd** 群组管理
 * **groups** 有效群组
 * **newgrp** 有效群组切换（该命令将会启动一个新的以切换群为默认群组的shell）
-* **** 切换运行等级
 
 > # 常用参数 #
 
@@ -63,11 +64,31 @@
   -m: 后面接天数，修改 shadow 第四字段  
   -M: 后面接天数，修改 shadow 第五字段  
   -W: 后面接天数，修改 shadow 第六字段  
-* **passwd**  
-* **passwd**  
-* **passwd**  
-* **passwd**  
-* **passwd**  
+* **finger**  
+  -s: 仅列出用户的账号、全名、终端机代号与登陆时间等等  
+  -m: 列出与后面接的账号相同者，而不是利用部分比对
+* **chfn**  
+  -f: 后面接完整的名字  
+  -o: 办公室的房间号  
+  -p: 办公室的电话号  
+  -h: 家里的电话号
+* **chsh**  
+  -l: 列出目前系统上面可用的 shell ，其实就是 /etc/shells 的内容  
+  -s: 修改要配置的shell
+* **groupadd**  
+  -g: 后面接特定GID  
+  -r: 创建系统群组
+* **groupmod**  
+  -g: 修改现有GID  
+  -n: 修改现有群组名字
+* **gpasswd**  
+    : 没有参数则表明给groupname一个口令  
+  -A: 将群组的管理权交给其他用户  
+  -M: 将帐号加入该群组  
+  -r: 将groupname的口令移除  
+  -R: 让groupname的口令栏失效  
+  -a: 将某个使用者加入到这个群组  
+  -d: 将某个使用者移出这个群组
 
 
 > # 概念简介 #
@@ -85,12 +106,18 @@
 `daemon:::root,bin,daemon`
 `组名:口令栏（如果为!则表示无群组管理员）:群组管理员帐号:群组的用户`
 
-###  ###
-
 > # 使用示例 #
 
 ```
-[root@www ~]# useradd -u 700 -g users jt  //创建UID为700的jt账户，默认群组为users
-[root@www ~]# passwd -x 60 -i 10 jt       //jt账户必须每60天修改一次密码，10天不改则口令失效
-[root@www ~]# chage -d 0 agetest          //强制用户首次登录后修改密码
+[root@www ~]# useradd -u 700 -g users jt                //创建UID为700的jt账户，默认群组为users
+[root@www ~]# passwd -x 60 -i 10 jt                     //jt账户必须每60天修改一次密码，10天不改则口令失效
+[root@www ~]# chage -d 0 agetest                        //强制用户首次登录后修改密码
+[root@www ~]# usermod -e "2009-12-31" jt                //修改jt用户失效日期
+[root@www ~]$ finger                                    //列出目前在系统上登录的用户与时间
+[root@www ~]$ finger root                               //列出root账户的信息
+[root@www ~]# chfn -f sfh                               //修改当前用户finger信息
+[root@www ~]# groupadd [-g gid] [-r] 组名
+[root@www ~]# groupmod [-g gid] [-n group_name] 群组名
+[root@www ~]# groupdel [groupname]
+[root@www ~]# gpasswd groupname
 ```
