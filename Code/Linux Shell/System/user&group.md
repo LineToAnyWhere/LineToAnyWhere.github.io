@@ -127,7 +127,7 @@ root          ALL=(ALL)               ALL
 jt            ALL=(root)           /usr/bin/passwd
 ADMPWCOM      ALL=(root)            ADMPWCOM
 #禁止用户切换/提升至root账户，禁止修改root密码
-jt            ALL=(root)            NOPASSWD:!/usr/bin/su,!/usr/bin/su -,!/usr/bin/passwd,!/usr/bin/passwd root
+jt            ALL=(root)            NOPASSWD:ALL,!/usr/bin/su,!/usr/bin/su -,!/usr/bin/passwd,!/usr/bin/passwd root
 #组       登录来源=(可切换身份)      可执行命令
 %jiutian      ALL=(root)            NOPASSWD:ALL
 ```
