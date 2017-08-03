@@ -16,6 +16,9 @@
 * **gpasswd** 群组管理
 * **groups** 有效群组
 * **newgrp** 有效群组切换（该命令将会启动一个新的以切换群为默认群组的shell）
+* **su** 切换用户
+* **sudo** 以root权限运行程序
+* **visudo** 编辑/etc/sudoers
 
 > # 常用参数 #
 
@@ -89,6 +92,14 @@
   -R: 让groupname的口令栏失效  
   -a: 将某个使用者加入到这个群组  
   -d: 将某个使用者移出这个群组
+* **su**  
+   -: 单纯使用 - 代表使用login-shell的变量文件读取方式来登陆系统,不使用则是切换到root用户
+  -l: 与 - 类似，但后面需要加欲切换的使用者账号！也是 login-shell 的方式
+  -m: 与 -p 一样，表示使用目前环境配置，而不读取新使用者的配置文件
+  -c: 仅进行一次命令
+* **sudo**
+  -b: 将后序命令放到后台运行  
+  -u: 后面接预切换的用户，若无此选项则代表root
 
 
 > # 概念简介 #
@@ -105,7 +116,20 @@
 ### /etc/gshadow数据结构 ###
 `daemon:::root,bin,daemon`
 `组名:口令栏（如果为!则表示无群组管理员）:群组管理员帐号:群组的用户`
-
+### /etc/sudoers配置规范 ###
+```
+#定义用户别名
+User_Alias ADMPW = user1,user2,user3,jt
+#定义命令别名
+Cmnd_Alias ADMPWCOM = !/usr/bin/passwd,!/usr/bin/passwd root,/usr/bin/passwd [A-Za-z]*
+#用户     登录来源=(可切换身份)      可执行命令
+root          ALL=(ALL)               ALL
+jt            ALL=(root)           /usr/bin/passwd
+ADMPWCOM      ALL=(root)            ADMPWCOM
+jt            ALL=(root)          !/usr/bin/passwd,!/usr/bin/passwd root,/usr/bin/passwd [A-Za-z]*
+#组       登录来源=(可切换身份)      可执行命令
+%jiutian      ALL=(root)            NOPASSWD:ALL
+```
 > # 使用示例 #
 
 ```
@@ -120,4 +144,5 @@
 [root@www ~]# groupmod [-g gid] [-n group_name] 群组名
 [root@www ~]# groupdel [groupname]
 [root@www ~]# gpasswd groupname
+[root@www ~]# su - -c "head -n 3 /etc/shadow"            //以root权限执行一次命令
 ```
