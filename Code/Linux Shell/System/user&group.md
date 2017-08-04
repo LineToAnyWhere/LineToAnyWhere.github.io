@@ -19,6 +19,8 @@
 * **su** 切换用户
 * **sudo** 以root权限运行程序
 * **visudo** 编辑/etc/sudoers
+* **setfacl** 设置acl
+* **getfacl** 获取acl设置
 
 > # 常用参数 #
 
@@ -131,6 +133,8 @@ jt            ALL=(root)            NOPASSWD:ALL,!/usr/bin/su,!/usr/bin/su -,!/u
 #组       登录来源=(可切换身份)      可执行命令
 %jiutian      ALL=(root)            NOPASSWD:ALL
 ```
+### acl配置 ###
+访问控制列表的配置需要在挂载磁盘时开启，在defaults后增加acl表示开启acl支持
 > # 使用示例 #
 
 ```
