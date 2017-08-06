@@ -21,6 +21,8 @@
 * **visudo** 编辑/etc/sudoers
 * **setfacl** 设置acl
 * **getfacl** 获取acl设置
+* **w/who/last/lastlog/** 查询当前/最近登录信息
+* **write/mesg/wall** 与当前登录的其他终端发送消息
 
 > # 常用参数 #
 
@@ -87,7 +89,7 @@
   -g: 修改现有GID  
   -n: 修改现有群组名字
 * **gpasswd**  
-    : 没有参数则表明给groupname一个口令  
+    : 没有参数则表明给groupname一个口令  ·
   -A: 将群组的管理权交给其他用户  
   -M: 将帐号加入该群组  
   -r: 将groupname的口令移除  
@@ -102,6 +104,14 @@
 * **sudo**
   -b: 将后序命令放到后台运行  
   -u: 后面接预切换的用户，若无此选项则代表root
+* **setfacl**
+  -m: 配置后续的 acl 参数给文件使用，不可与 -x 合用  
+  -x: 删除后续的 acl 参数，不可与 -m 合用  
+  -b: 移除所有的 acl 配置参数  
+  -k: 移除默认的 acl 参数  
+  -R: 递归配置 acl  
+  -d: 配置默认 acl 参数，仅对目录有效  
+* **getfacl**
 
 
 > # 概念简介 #
@@ -135,6 +145,14 @@ jt            ALL=(root)            NOPASSWD:ALL,!/usr/bin/su,!/usr/bin/su -,!/u
 ```
 ### acl配置 ###
 访问控制列表的配置需要在挂载磁盘时开启，在defaults后增加acl表示开启acl支持
+### pam验证 ###
+```
+#验证类别         控制标准        PAM模块与参数
+auth             required
+account          requisite
+session          sufficient
+password         optional
+```
 > # 使用示例 #
 
 ```
@@ -150,4 +168,12 @@ jt            ALL=(root)            NOPASSWD:ALL,!/usr/bin/su,!/usr/bin/su -,!/u
 [root@www ~]# groupdel [groupname]
 [root@www ~]# gpasswd groupname
 [root@www ~]# su - -c "head -n 3 /etc/shadow"            //以root权限执行一次命令
+[root@www ~]# setfacl [-bkRd] [{-m|-x} acl参数] 目标文件  
+[root@www ~]# setfacl -m u:jt:rx acl_test1               //为acl_test1配置acl，允许jt用户读执行
+[root@www ~]# setfacl -m g:jiutian:rx acl_test1          //为acl_test1配置acl，允许jiutian群组读执行
+[root@www ~]# setfacl -m m:r acl_test1                   //为acl_test1配置有效acl为读
+[root@www ~]# setfacl -m d:u:jt:rx /jtdata/              //为jtdata目录配置acl，其子目录会继承该配置
+[root@www ~]# write root pts/2                           //向pts/2登录的root账户发送消息，ctrl+d来结束
+[root@www ~]$ mesg n                                     //拒绝接受write消息
+[root@www ~]# wall "I will shutdown my linux server..."  //广播发送消息
 ```
