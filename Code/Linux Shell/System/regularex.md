@@ -80,8 +80,8 @@ diff -Naur passwd.old passwd.new > passwd.patch
 ### patch ###
 patch使用示例：
 ```
-[root@www ~]# patch -pN < patch_file    <==升级
-[root@www ~]# patch -R -pN < patch_file <==还原
+[root@www ~]# patch -pN < patch_file        //升级
+[root@www ~]# patch -R -pN < patch_file     //还原
 ```
 
 > # 应用示例 #
