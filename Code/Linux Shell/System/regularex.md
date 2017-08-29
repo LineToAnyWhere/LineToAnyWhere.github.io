@@ -67,7 +67,22 @@ root     lines: 1        columns: 10
 |FS|目前的分隔符，默认是空格|
 
 ### diff ###
+diff使用示例：
+```
+diff [-bBi] from-file to-file
+-b: 在一行中忽略多个空格。
+-B: 忽略空白行的差异。
+-i: 忽略大小写。
+//通过diff命令生成补丁文件patch
+diff -Naur passwd.old passwd.new > passwd.patch
+```
 
+### patch ###
+patch使用示例：
+```
+[root@www ~]# patch -pN < patch_file    <==升级
+[root@www ~]# patch -R -pN < patch_file <==还原
+```
 
 > # 应用示例 #
 ```
