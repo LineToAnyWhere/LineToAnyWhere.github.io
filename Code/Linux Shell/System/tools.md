@@ -61,6 +61,8 @@ Linux 下的计算器软件
   date -d '+1 day' +'%Y%m%d'
   date -d "1 days next" +%Y%m%d
   date --date='tomorrow' '+%Y%m%d'
+//日期计算
+  date -d "${arr[0]:6:8} ${arr[0]:14} +8 hour" +%Y%m%d%H
 ```
 # 编码转换 #
 > # 命令描述 #
