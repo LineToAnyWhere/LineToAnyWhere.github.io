@@ -1,9 +1,9 @@
 # LINUX shell #
-> ##shell简介##  
+> ## shell简介 ##  
 
 在linux中，管理整个计算机硬件的其实是操作系统的内核（kernel），内核是需要被保护的，因此我们需要使用shell来跟内核通信。此处我们说的shell为广义的shell，凡是跟操作系统通信的接口都可以称为shell。目前一般的linux系统使用的shell是bash，我们可以使用的shell有很多种，比如Sun默认的C Shell、K SHell、TCSH、Bourne Again SHell(简称bash)。我们可以通过查询`/etc/shells`文件来查询我们当前系统所支持的shell。
 
-> ##shell 变量##
+> ## shell 变量 ##
 
 在shell变量中的一些细节：
 * **单引号一般用于纯文本输出，而双引号一般会将引用的变量输出出来**
@@ -12,7 +12,16 @@
 * **取消一个变量可以用`unset var`来取消**
 * **$RANDOM是shell中的随机数**
 
-> ##在线帮助man&info##  
+在shell中对变量的一些处理：
+```
+[root@www ~]# read [-pt] variable                                 //p后跟提示字符，t后跟等待的秒数
+[root@www ~]# declare [±aixr] variable                            //a为数组类型，i为整数类型，x与export一样，r是只读类型。+为取消动作，-为执行动作
+[root@www ~]# read -p "Please keyin your name: " -t 30 named      //提示使用者 30 秒内输入自己的名字，输入的内容将被赋给named变量
+[root@www ~]# declare -i sum=100+300+50                           //声明sum为整数则会运算
+```
+
+
+> ## 在线帮助man&info ##  
 
 常见的帮助文件都在**/usr/share/doc**下  
 **帮助文档级别**
