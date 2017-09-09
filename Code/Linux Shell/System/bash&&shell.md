@@ -11,6 +11,8 @@
 * **执行命令的方式有两种``或者$(command)**
 * **取消一个变量可以用`unset var`来取消**
 * **$RANDOM是shell中的随机数**
+* **执行命令时使用`!21`将执行历史记录第21条命令**
+* **执行命令时使用`!cp`将执行最近一条以cp开头的命令**
 
 在shell中对变量的一些处理：
 ```
@@ -42,6 +44,19 @@
 |var=${str?expr}|expr 输出至 stderr|var=|var=$str|
 |var=${str:?expr}|expr 输出至 stderr|expr 输出至 stderr|var=$str|
 
+> ## linux配置文件 ##
+
+|配置文件|作用|
+|:-:|:-:|
+|/etc/profile|存放全局的环境变量配置，用户登录后第一个被加载的文件|
+|/etc/inputrc|该文件主要存放bash的热键配置，包括tab有无声音之类|
+|/etc/profile.d/*.sh|拥有r权限的sh会被加载，主要配置bash颜色，语系，别名等|
+|/etc/sysconfig/i18n|只要用于配置bask语系|
+|~/.bash_profile|个人环境变量配置文件|
+|~/.bash_login|个人环境变量配置文件（在~/.bash_profile不存在时才会读取）|
+|~/.profile|个人环境变量配置文件（在~/.bash_login不存在时才会读取）|
+|~/.bashrc|个人环境变量配置文件（non-login时也会读取此配置文件）|
+|/etc/bashrc|全局环境变量配置文件|
 
 > ## 在线帮助man&info ##  
 
