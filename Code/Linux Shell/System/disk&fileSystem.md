@@ -1,7 +1,7 @@
 # 磁盘和文件系统 #
 > # 命令描述 #
 
-此处要介绍的相关命令共有18个，分别是**dumpe2fs**、**df**、**du**、**ln**、**fdisk**、**mkfs**、**mke2fs**、**fsck**、**badblocks**、**mount**、**umount**、**mknod**、**e2label**、**tune2fs**、**hdparm**、**free**、**mkswap** 、**swapon**、**parted**
+此处要介绍的相关命令共有19个，分别是**dumpe2fs**、**df**、**du**、**ln**、**fdisk**、**mkfs**、**mke2fs**、**fsck**、**badblocks**、**mount**、**umount**、**mknod**、**e2label**、**tune2fs**、**hdparm**、**free**、**mkswap** 、**swapon**、**parted**、**ulimit**
 * **dumpe2fs**用于查看superblock信息
 * **df**用于列出当前挂载的文件系统信息
 * **ln**用于实体链接和符号链接
@@ -21,6 +21,7 @@
 * **mkswap**用于用于创建swap格式分区
 * **swapon**用于将swap启动
 * **parted**用于处理2TB以上的磁盘分区
+* **ulimit**用于对用户使用资源配额
 
 
 > # 常用参数 #
@@ -111,6 +112,17 @@ EXT2/EXT3 的额外选项功能：(e2fsck 这支命令所提供)
   swapon 装置名称
 * **parted**  
   parted 装置名称 命令
+* **ulimit**  
+  -H ：hard limit ，严格的配置，必定不能超过这个配置的数值  
+  -S ：soft limit ，警告的配置，可以超过这个配置值，但是若超过则有警告信息  
+  -a ：后面不接任何选项与参数，可列出所有的限制额度  
+  -c ：当某些程序发生错误时，系统可能会将该程序在内存中的信息写成文件(除错用)，这种文件就被称为核心文件(core file)。此为限制每个核心文件的最大容量  
+  -f ：此 shell 可以创建的最大文件容量(一般可能配置为 2GB)单位为 Kbytes  
+  -d ：程序可使用的最大断裂内存(segment)容量  
+  -l ：可用于锁定 (lock) 的内存量  
+  -t ：可使用的最大 CPU 时间 (单位为秒)  
+  -u ：单一用户可以使用的最大程序(process)数量  
+
 > # 应用示例 #
 
 ```
@@ -136,6 +148,7 @@ EXT2/EXT3 的额外选项功能：(e2fsck 这支命令所提供)
 [root@www ~]# parted /dev/sdb print                       //打印/dev/sdb的分区情况
 [root@www ~]# parted /dev/sdb mkpart logical ext3 1GB 5GB //在sdb上分割逻辑分区，文件系统使用ext3，从1G位置开始，5G位置结束
 [root@www ~]# parted /dev/sdb rm 8                        //删除sdb上8号分区
+[root@www ~]# ulimit -f 10240                             //仅允许用户创建10M以下文件
 ```
 > # 概念简介 #
 

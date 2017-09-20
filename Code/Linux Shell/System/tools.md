@@ -155,3 +155,31 @@ Linux 下的计算器软件
 [root@www ~]# shutdown -k now 'This system will reboot'  
 仅发出警告信件的参数！系统并不会关机啦！吓唬人！
 ```
+
+# 字符串处理 #
+> # 命令描述 #
+
+* **cut**
+* **grep**
+* **sort**
+* **wc**
+* **uniq**
+* **join**
+* **paste**
+* **split**
+
+> # 常用参数 #
+
+* **cut**  
+* **grep**
+* **sort**
+* **wc**
+* **uniq**
+* **join**
+* **paste**
+* **split**
+
+> # 应用示例 #
+
+```
+```

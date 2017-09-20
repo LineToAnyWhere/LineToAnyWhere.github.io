@@ -20,6 +20,8 @@
 [root@www ~]# declare [±aixr] variable                            //a为数组类型，i为整数类型，x与export一样，r是只读类型。+为取消动作，-为执行动作
 [root@www ~]# read -p "Please keyin your name: " -t 30 named      //提示使用者 30 秒内输入自己的名字，输入的内容将被赋给named变量
 [root@www ~]# declare -i sum=100+300+50                           //声明sum为整数则会运算
+[root@www ~]# stty -a                                             //列出当前快捷键内容
+[root@www ~]# stty erase ^h                                       //使用ctrl+h 进行删除
 ```
 
 在shell中对变量的内容的处理：
