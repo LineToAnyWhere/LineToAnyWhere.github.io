@@ -11,7 +11,50 @@ read -p "Please input your first name: " firstname  # 提示使用者输入
 read -p "Please input your last name:  " lastname   # 提示使用者输入
 echo -e "\nYour full name is: $firstname $lastname" # 结果由萤幕输出
 #数值计算
-total=$((123 * 456)
+total=$((123 * 456))
+#条件判断式
+read -p "Please input (Y/N): " yn
+if [ "$yn" == "Y" ] || [ "$yn" == "y" ]; then
+	echo "OK, continue"
+	exit 0
+elif [ "$yn" == "N" ] || [ "$yn" == "n" ]; then
+	echo "Oh, interrupt!"
+	exit 0
+else
+  echo "input error."
+fi
+
+case $1 in
+  "hello")
+	echo "Hello, how are you ?"
+	;;
+  "")
+	echo "You MUST input parameters, ex> {$0 someword}"
+	;;
+  *)   # 其实就相当於万用字节，0~无穷多个任意字节之意！
+	echo "Usage $0 {hello}"
+	;;
+esac
+#函数式
+function sayHello() {
+	echo "hello"
+}
+sayHello
+#循环
+while [ condition ]  <==中括号内的状态就是判断式
+do            <==do 是回圈的开始！
+	程序段落
+done
+until [ condition ]
+do
+	程序段落
+done
+for var in con1 con2 con3;do
+	程序段
+done
+for (( i=1; i<=100; i=i+1 ));do
+	s=$(($s+$i))
+done
 ```
 # 判断式 #
 
@@ -51,3 +94,6 @@ total=$((123 * 456)
 |-a|两个条件同时为true时返回true（and）|
 |-o|两个条件有一个为true时返回true（or）|
 |!|取非|
+
+# shell debug #
+debug shell主要通过sh命令进行，使用-n参数进行语法检查，使用-x参数将会输出一行命令，执行一行命令
