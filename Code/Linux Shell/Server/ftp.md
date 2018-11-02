@@ -435,3 +435,104 @@ vsftp在使用时虚根据具体的需求来制定配置，此处不做详细事
 > # Vsftp参考文档 #
 
 [vsftp官方文档](https://security.appspot.com/vsftpd.html)
+
+## vsftp虚拟用户 ##
+#### 第一步 ####
+修改/etc/vsftpd/vsftpd.cof，执行如下脚本：
+```
+mv /etc/vsftpd/vsftpd.conf /etc/vsftpd/vsftpd.conf.bak
+cat << EOF > /etc/vsftpd/vsftpd.conf
+local_enable=YES
+guest_enable=YES
+guest_username=jt
+write_enable=YES
+local_umask=022
+dirmessage_enable=YES
+xferlog_enable=YES
+connect_from_port_20=YES
+xferlog_std_format=YES
+ascii_upload_enable=YES
+ascii_download_enable=YES
+chroot_local_user=YES
+listen=YES
+user_config_dir=/etc/vsftpd/vuser_conf
+pam_service_name=vsftpd
+virtual_use_local_privs=YES
+userlist_enable=YES
+userlist_deny=NO
+local_root=/jtdata/
+tcp_wrappers=YES
+use_localtime=YES
+EOF
+```
+#### 第二步 ####
+修改vsftpd认证方式，使用pam认证。执行如下脚本：
+```
+mv /etc/pam.d/vsftpd /etc/pam.d/vsftpd.bak
+cat << EOF > /etc/pam.d/vsftpd
+#%PAM-1.0
+auth required /lib64/security/pam_userdb.so db=/etc/vsftpd/vuser
+account required /lib64/security/pam_userdb.so db=/etc/vsftpd/vuser
+EOF
+```
+#### 第三步 ####
+生成账户密码，使用如下脚本：
+```
+mkdir /etc/vsftpd/initftpuser
+###########脚本内容#########
+#!/bin/bash
+#备份历史文件
+now=`date +%Y%m%d%H%M%S`
+mkdir -p /etc/vsftpd/bak/$now
+cd /etc/vsftpd/
+cp -af login.txt user_list vuser.db vsftpd.conf /etc/vsftpd/bak/$now/
+cp -r vuser_conf /etc/vsftpd/bak/$now/
+#新建虚拟用户
+
+#读取配置文件
+for ftpuser in `cat /etc/vsftpd/initftpuser/userlist`
+do
+	#echo $ftpuser
+	#添加用户到login.txt
+	boolean=`grep ^$ftpuser$ /etc/vsftpd/login.txt`
+	if [[ "$boolean" != "" ]];then
+		echo "$ftpuser用户存在，不添加"
+	else
+    pass=`cat /dev/urandom | awk 'NR==1{print $0|"md5sum|head -c 16";exit}'`
+		echo -e "$ftpuser\n$pass" >> /etc/vsftpd/login.txt
+		echo "$ftpuser用户不存在，添加成功"
+	fi
+	#创建用户主目录
+	##大写转小写
+	lower_ftpuser=`echo $ftpuser | tr '[A-Z]' '[a-z]'`
+	main_home="/jtdata/project/$lower_ftpuser"
+	if [ ! -d "$main_home" ];then
+		mkdir -p "$main_home"
+		chown -R jt:jiutian "$main_home"
+		echo "$main_home目录不存在,创建成功"
+	else
+		echo "$main_home目录存在,不创建"
+	fi
+	#创建虚拟用户配置文件
+	vfilename="/etc/vsftpd/vuser_conf/$ftpuser"
+	if [ -f "$vfilename" ];then
+		echo "$vfilename虚拟用户配置文件存在"
+	else
+		echo -e "local_root=/jtdata/project/$lower_ftpuser/\nallow_writeable_chroot=YES\ndownload_enable=YES\nwrite_enable=NO\nanon_upload_enable=NO\n" > $vfilename
+		echo "$vfilename虚拟用户配置文件不存在,创建成功"
+	fi
+	#添加用户到允许列表
+	boolean=`grep ^$ftpuser$ /etc/vsftpd/user_list`
+	if [[ "$boolean" != "" ]];then
+		echo "$ftpuser用户存在，不添加"
+	else
+		echo "$ftpuser" >> /etc/vsftpd/user_list
+		echo "$ftpuser用户不存在，添加成功"
+	fi
+	#初始化用户名及密码
+	db_load -T -t hash -f /etc/vsftpd/login.txt /etc/vsftpd/vuser.db
+done
+###########################################
+chmod 700 /etc/vsftpd/initftpuser/ftpuseradd.sh
+touch /etc/vsftpd/initftpuser/userlist
+```

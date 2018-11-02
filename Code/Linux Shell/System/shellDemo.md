@@ -12,7 +12,9 @@ read -p "Please input your last name:  " lastname   # 提示使用者输入
 echo -e "\nYour full name is: $firstname $lastname" # 结果由萤幕输出
 #数值计算
 total=$((123 * 456))
+
 #条件判断式
+
 read -p "Please input (Y/N): " yn
 if [ "$yn" == "Y" ] || [ "$yn" == "y" ]; then
 	echo "OK, continue"
@@ -35,12 +37,16 @@ case $1 in
 	echo "Usage $0 {hello}"
 	;;
 esac
+
 #函数式
+
 function sayHello() {
 	echo "hello"
 }
 sayHello
+
 #循环
+
 while [ condition ]  <==中括号内的状态就是判断式
 do            <==do 是回圈的开始！
 	程序段落
