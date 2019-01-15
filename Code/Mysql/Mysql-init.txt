@@ -1,0 +1,12 @@
+use mysql;
+#修改初始化密码
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'Sfh20190115@';
+#允许远程访问
+update user set host = '%' where user = 'root';
+FLUSH PRIVILEGES;
+#更改加密方式
+ALTER USER 'root'@'%' IDENTIFIED BY 'Sfh20190115@' PASSWORD EXPIRE NEVER;
+#更新用户密码
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'Sfh20190115@';
+#刷新权限
+FLUSH PRIVILEGES;
