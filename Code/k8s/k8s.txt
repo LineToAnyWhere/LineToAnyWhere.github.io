@@ -1,0 +1,172 @@
+一.主机环境
+0.版本
+docker 19.03.8
+k8s 1.18.2
+
+1.测试环境说明
+	（1）NTP时间同步
+	（2）通过DNS解析
+	（3）关闭iptables或firewalld
+	（4）关闭禁用SElinux
+	（5）禁用Swap
+	（6）若要使用ipvs，载入ipvs模块
+
+
+
+# 卸载其他版本k8s
+yum -y remove etcd flannel kubernetes*
+
+# 升级内核
+yum clean all
+yum makecache
+yum -y update
+
+# hosts配置
+192.168.50.50 master01.jtmet.com master01
+192.168.50.51 node01.jtmet.com node01
+192.168.50.52 node02.jtmet.com node02
+192.168.50.53 node03.jtmet.com node03
+192.168.50.54 node04.jtmet.com node04
+
+# 关闭防火墙
+systemctl stop firewalld
+systemctl disable firewalld
+
+# 关闭SELINUX
+setenforce 0
+getenforce
+sed -i '1,$s/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
+
+# 禁用Swap
+swapoff -a
+
+# 内核模块加载
+cat << EOF > /etc/sysconfig/modules/ipvs.modules 
+#!/bin/bash
+ipvs_modules_dir="/usr/lib/modules/\`uname -r\`/kernel/net/netfilter/ipvs"
+for i in \`ls \$ipvs_modules_dir | sed  -r 's#(.*).ko.xz#\1#'\`; do
+    /sbin/modinfo -F filename \$i  &> /dev/null
+    if [ \$? -eq 0 ]; then
+        /sbin/modprobe \$i
+    fi
+done
+EOF
+chmod +x /etc/sysconfig/modules/ipvs.modules
+bash /etc/sysconfig/modules/ipvs.modules
+
+# 所有节点内核参数调整
+# 生效系统参数
+modprobe br_netfilter
+cat <<EOF > /etc/sysctl.d/k8s.conf
+net.ipv4.ip_forward=1
+net.bridge.bridge-nf-call-iptables=1
+net.bridge.bridge-nf-call-ip6tables=1
+EOF
+sysctl -p /etc/sysctl.d/k8s.conf
+
+二、安装程序包
+
+# 安装docker
+yum -y install docker-ce
+systemctl enable docker
+
+
+#安装k8s
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+EOF
+yum install -y kubelet kubeadm kubectl
+systemctl enable kubelet && systemctl start kubelet
+
+
+三、启动docker服务（逐节点执行）
+
+# 修改docker配置
+vim /usr/lib/systemd/system/docker.service
+Environment="HTTPS_PROXY=34.92.79.213:25000"
+Environment="NO_PROXY=127.0.0.0/8,192.168.0.0/24"
+ExecStartPost=/usr/sbin/iptables -P FORWARD ACCEPT
+
+# 修改docker默认的cgroup
+vim /etc/docker/daemon.json
+{
+  "exec-opts": ["native.cgroupdriver=systemd"]
+}
+
+#启动docker
+systemctl daemon-reload
+systemctl restart docker
+systemctl enable docker
+
+四、优化主机点
+
+1.初始化master节点
+若未禁用Swap，则需要编辑/etc/sysconfig/kubelet,设置忽略Swap启动状态的错误
+KUBELET_EXTRA_ARGS="--fail-swap-on=false"
+
+kubeadm config images pull
+
+
+export http_proxy="34.92.79.213:25000"
+export https_proxy="34.92.79.213:25000"
+
+# 初始化master
+kubeadm init --kubernetes-version="v1.18.2" --pod-network-cidr="10.244.0.0/16" --service-dns-domain="local.jtmet.com"
+
+
+
+########################################################################
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+ 
+kubeadm join 192.168.0.250:6443 --token t8rb42.hn6hxqto3fat2nb2 \
+    --discovery-token-ca-cert-hash sha256:c1058869abcc7fff140f35bfb46c2855804ea9e8c8dbbfa9d697190ebfe40828 --v=5
+
+#####常用命令
+
+# 重置k8s信息
+kubeadm reset
+
+# 查询指定名称空间的pods
+kubectl get pods -n kube-system -o json
+
+# 查看集群支持的资源
+kubectl api-resources
+
+# 删除命名空间会自动删除空间下所有pod
+kubectl delete ns/testing ns/prod
+
+# 创建service
+kubectl create service clusterip imgserver-pord --tcp=30000:80
+kubectl create service clusterip imgserver-develop --tcp=30000:8
+kubectl create service clusterip imgserver-testing --tcp=30000:8
+
+# 创建pod
+kubectl create deploy imgserver-pord --image=xx/xx
+
+# 扩容
+kubectl scale --replicas=3 deployment myapp
+
+# 声明式创建(推荐)
+kubectl apply -f xx.yaml
+
+# 陈述式创建
+kubectl create -f xx.yaml
