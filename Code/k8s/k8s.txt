@@ -63,6 +63,7 @@ net.bridge.bridge-nf-call-iptables=1
 net.bridge.bridge-nf-call-ip6tables=1
 EOF
 sysctl -p /etc/sysctl.d/k8s.conf
+cat /etc/systemd/system/kubelet.service
 
 二、安装程序包
 
@@ -104,14 +105,13 @@ systemctl daemon-reload
 systemctl restart docker
 systemctl enable docker
 
-四、优化主机点
+#下载镜像  
+kubeadm config images pull
 
+四、优化主机点
 1.初始化master节点
 若未禁用Swap，则需要编辑/etc/sysconfig/kubelet,设置忽略Swap启动状态的错误
 KUBELET_EXTRA_ARGS="--fail-swap-on=false"
-
-kubeadm config images pull
-
 
 export http_proxy="34.92.79.213:25000"
 export https_proxy="34.92.79.213:25000"
@@ -119,6 +119,8 @@ export https_proxy="34.92.79.213:25000"
 # 初始化master
 kubeadm init --kubernetes-version="v1.18.2" --pod-network-cidr="10.244.0.0/16" --service-dns-domain="local.jtmet.com"
 
+# 初始化网络
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 
 
 ########################################################################
