@@ -2,6 +2,7 @@
 ## docker 信息 ##  
 >docker info  
 docker images 
+docker inspect 容器ID
 
 ## docker 镜像操作 ##
 > docker search xx  
