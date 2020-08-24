@@ -67,5 +67,5 @@ lvresize -l +179 /dev/vg1/lv1                 //为vg1中的lv1增加179个PE
 resize2fs /dev/vg1/lv1                        //文件系统重新加载大小
 pvmove /dev/sda1 /dev/sdb1                    //将sda1上的数据搬移到sdb1上
 lvcreate -l 60 -s -n clpic /dev/vg1/lv1       //创建名为clpic的快照，被快照的内容是/dev/vg1/lv1
-
+xfs_growfs  /dev/jtdata/jtdata                //对新增区块格式化文件系统
 ```
